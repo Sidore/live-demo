@@ -1,5 +1,6 @@
 import * as React from 'react';
 import io from 'socket.io-client';
+import { Draggable, Droppable } from 'react-drag-and-drop'
 
 const dev = location && location.hostname == "localhost" || false;
 const serverUrl = dev ? "http://localhost:3333" : "";
@@ -71,6 +72,11 @@ export default class Page extends React.Component<{},{}> {
         socket.emit("typechose", "display")
     }
 
+    onDrop(data) {
+        console.log(data)
+        // => banana 
+    }
+
     render() {
 
         let res;
@@ -89,14 +95,19 @@ export default class Page extends React.Component<{},{}> {
             } else {
                 res = <div>dashboards<ul>
                     {this.state.dashboards.map(element => {
-                        return <li>{element}</li>
+                        return <li><Draggable type="dashboard" data={element}>{element}</Draggable></li>
                     })}
-                </ul>screens<ul>
+                </ul>screens
+                <Droppable
+                types={['dashboard']} // <= allowed drop types
+                onDrop={this.onDrop.bind(this)}><ul>
+                    
                 {this.state.screens.map(element => {
                         return <li>{element}</li>
                     })}
 
                 </ul>
+                </Droppable>
                 </div>
             }
 

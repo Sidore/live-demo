@@ -1,7 +1,7 @@
 import * as React from 'react';
 import io from 'socket.io-client';
 import { Draggable, Droppable } from 'react-drag-and-drop'
-
+import "./style.scss"
 
 const apId = "8ba054fe-7d3f-4d89-83a9-805b14c4c8cd";
 const sec = "crewnjWhKCUYpmBY8Q5ObxdfonXQq/7Wf7ICiLedD2A=";

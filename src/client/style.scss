@@ -1,0 +1,123 @@
+
+body {
+    background: #eee;
+    margin: 0;
+    padding:0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.typeContainer {
+    
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+    flex-direction: column;
+    box-shadow: #ccc 0px 0px 10px;
+    font-size: 44px;
+    padding: 40px;
+    margin: 20px;
+
+    .typeButtonContainer {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: row;
+        padding: 40px;
+
+        .typeButton {
+            background: #ccc;
+            color: #111;
+            border: none;
+            padding: 35px 25px;
+            font-size: 32px;
+            display: flex;
+            cursor: pointer;
+            transition: all .3s;
+            border-radius: 10px;
+            outline: none;
+            line-height: 60px;
+            box-shadow: #999 0px 0px 2px;
+    
+            img {
+                width: 60px;
+                padding-left: 5px;
+    
+                &.second {
+                    padding-left: 20px;
+                }
+            }
+    
+            &:hover {
+                transform: scale(1.2);
+            }
+        }
+    }
+
+    
+}
+
+.displayNumber {
+    padding: 50px;
+    text-align: center;
+    background: white;
+    margin: 20px;
+    box-shadow: #ccc 0px 0px 10px;
+
+    hr {
+        border: none;
+        padding: 2px;
+        margin: 20px;
+        background: #ddd;
+        border-radius: 5px;
+    }
+}
+
+.controlContainer {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    justify-content: stretch;
+}
+
+.dashboardsContainer, .screensContainer {
+    width: 100%;
+    background: white;
+    margin: 20px;
+    box-shadow: #ccc 0px 0px 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+
+    &:first-of-type {
+        margin-right: 0;
+    }
+
+    h2 {
+        padding-bottom: 20px;
+    }
+}
+
+.dashboardsList, .screensList {
+    list-style: none;
+    padding: 0;;
+    li {
+        border: 1px solid #999;
+        border-radius: 2px;
+        padding: 20px;
+        margin: 10px 0;
+        cursor: grab;
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+}
+
+.screensList li {
+    cursor: auto;
+    &:active {
+        cursor: auto;
+    }
+}

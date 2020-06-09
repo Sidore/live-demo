@@ -80,4 +80,11 @@ io.on("connection", (socket) => {
         }
     })
 
+    socket.on("moveBoard", ({dashboard, screen}) => {
+        collection.displays.find((s) => s.id == screen)
+        .emit("dashboard",dashboards.find((d) => d.displayName == dashboard).embedUrl)
+
+        
+    })
+
 });

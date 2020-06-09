@@ -73,8 +73,12 @@ export default class Page extends React.Component<{},{}> {
     }
 
     onDrop(data) {
-        console.log(this,data)
+        console.log(this.element,data)
         // => banana 
+        socket.emit("moveBoard", {
+            dashboard: data.dashboard,
+            screen: this.element
+        })
     }
 
     render() {
@@ -103,7 +107,7 @@ export default class Page extends React.Component<{},{}> {
                 {this.state.screens.map(element => {
                         return <Droppable
                         types={['dashboard']} // <= allowed drop types
-                        onDrop={this.onDrop.bind(element)}><li>{element}</li>
+                        onDrop={this.onDrop.bind({context: this, element})}><li>{element}</li>
                         </Droppable>
                     })}
 

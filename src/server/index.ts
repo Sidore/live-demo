@@ -27,7 +27,37 @@ const httpServer = server.listen(PORT, () => {
 })
 const io = socketServer(httpServer);
 
+let controllerInc = 1,
+displayInc = 1;
+
+const collection = {
+    controllers: [],
+    displays: []
+}
+
 io.on("connection", (socket) => {
     // socket.on("start", ({ multiplayer }) => {})
-    socket.emit("message", "hello")
+    socket.emit("message", "hello");
+
+    socket.on("typechose", (type) => {
+        if (type === 'display') {
+
+            collection.displays.push({
+                socket,
+                id: displayInc++
+            })
+
+            socket.emit("type", type);
+
+        } else if( type === 'controller') {
+
+            collection.controllers.push({
+                socket,
+                id: controllerInc++
+            })
+
+            socket.emit("type", type);
+        }
+    })
+
 });

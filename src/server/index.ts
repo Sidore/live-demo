@@ -37,6 +37,14 @@ const collection = {
 
 const dashboards = [];
 
+for(let i=0; i< 10; i++) {
+    dashboards.push({
+        id: i,
+        displayName: `Board ${i}`,
+        embedUrl: "https://www.youtube.com/embed/oYFTWuRwpJE"
+    })
+}
+
 io.on("connection", (socket) => {
     // socket.on("start", ({ multiplayer }) => {})
     socket.emit("message", "hello");

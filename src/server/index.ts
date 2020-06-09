@@ -41,7 +41,7 @@ for(let i=0; i< 10; i++) {
     dashboards.push({
         id: i,
         displayName: `Board ${i}`,
-        embedUrl: "https://www.youtube.com/embed/oYFTWuRwpJE"
+        embedUrl: i % 2 === 0 ? "https://www.youtube.com/embed/oYFTWuRwpJE" : "https://www.youtube.com/embed/meC1JsHF9hk"
     })
 }
 
@@ -54,20 +54,12 @@ io.on("connection", (socket) => {
 
             collection.displays.push({
                 socket,
-                id: displayInc++
+                id: displayInc++,
+                board: null
             })
 
             socket.emit("type", type);
             socket.emit("id", displayInc - 1)
-
-            let hotdata = {
-                dashboards: dashboards.map((d) => d.displayName),
-                screens: collection.displays.map((d) => d.id)
-            }
-
-            collection.controllers.forEach((c) => {
-                c.socket.emit("ctrlData", hotdata)
-            })
 
         } else if( type === 'controller') {
 
@@ -78,13 +70,34 @@ io.on("connection", (socket) => {
 
             socket.emit("type", type);
         }
+
+        let hotdata = {
+            dashboards: dashboards.map((d) => d.displayName),
+            screens: collection.displays.map((d) => ({id:d.id, dashboard: d.dashboard}))
+        }
+
+        collection.controllers.forEach((c) => {
+            c.socket.emit("ctrlData", hotdata)
+        })
     })
 
     socket.on("moveBoard", ({dashboard, screen}) => {
-        collection.displays.find((s) => s.id == screen)
-        .emit("dashboard",dashboards.find((d) => d.displayName == dashboard).embedUrl)
 
-        
+        console.log(dashboard, screen)
+        const scr = collection.displays.find((s) => s.id == screen.id);
+        const brd = dashboards.find((d) => d.displayName == dashboard)
+        scr.socket.emit("dashboard",brd.embedUrl);
+
+        scr.dashboard = brd.displayName;
+
+        let hotdata = {
+            dashboards: dashboards.map((d) => d.displayName),
+            screens: collection.displays.map((d) => ({id:d.id, dashboard: d.dashboard}))
+        }
+
+        collection.controllers.forEach((c) => {
+            c.socket.emit("ctrlData", hotdata)
+        })        
     })
 
 });

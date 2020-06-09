@@ -23,7 +23,8 @@ export default class Page extends React.Component<{},{}> {
         deviceType: null,
         dashboard: null,
         screens: [],
-        dashboards: []
+        dashboards: [],
+        // boardsToScreens: []
     }
 
     props: any = {
@@ -79,6 +80,23 @@ export default class Page extends React.Component<{},{}> {
             dashboard: data.dashboard,
             screen: this.element
         })
+
+        // this.context.setState({
+        //     ...this.state,
+        //     boardsToScreens: this.context.state.boardsToScreens.concat({
+        //         dashboard: data.dashboard,
+        //         screen: this.element
+        //     })
+        // })
+    }
+
+    findBoard(screen) {
+        console.log(screen, this.state.boardsToScreens , this.state.boardsToScreens.find((el) => {
+            return el.screen == screen
+        }))
+        return this.state.boardsToScreens.find((el) => {
+            return el.screen == screen
+        }).dashboard
     }
 
     render() {
@@ -107,7 +125,8 @@ export default class Page extends React.Component<{},{}> {
                 {this.state.screens.map(element => {
                         return <Droppable
                         types={['dashboard']} // <= allowed drop types
-                        onDrop={this.onDrop.bind({context: this, element})}><li>{element}</li>
+                        onDrop={this.onDrop.bind({context: this, element})}>
+                        <li>{element.id} - {element.dashboard}</li>
                         </Droppable>
                     })}
 

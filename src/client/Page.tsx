@@ -73,7 +73,7 @@ export default class Page extends React.Component<{},{}> {
     }
 
     onDrop(data) {
-        console.log(data)
+        console.log(this,data)
         // => banana 
     }
 
@@ -98,16 +98,17 @@ export default class Page extends React.Component<{},{}> {
                         return <li><Draggable type="dashboard" data={element}>{element}</Draggable></li>
                     })}
                 </ul>screens
-                <Droppable
-                types={['dashboard']} // <= allowed drop types
-                onDrop={this.onDrop.bind(this)}><ul>
+                <ul>
                     
                 {this.state.screens.map(element => {
-                        return <li>{element}</li>
+                        return <Droppable
+                        types={['dashboard']} // <= allowed drop types
+                        onDrop={this.onDrop.bind(element)}><li>{element}</li>
+                        </Droppable>
                     })}
 
                 </ul>
-                </Droppable>
+                
                 </div>
             }
 

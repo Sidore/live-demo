@@ -35,6 +35,8 @@ const collection = {
     displays: []
 }
 
+const dashboards = [];
+
 io.on("connection", (socket) => {
     // socket.on("start", ({ multiplayer }) => {})
     socket.emit("message", "hello");
@@ -48,6 +50,16 @@ io.on("connection", (socket) => {
             })
 
             socket.emit("type", type);
+            socket.emit("id", displayInc - 1)
+
+            let hotdata = {
+                dashboards: dashboards.map((d) => d.displayName),
+                screens: collection.displays.map((d) => d.id)
+            }
+
+            collection.controllers.forEach((c) => {
+                c.socket.emit("ctrlData", hotdata)
+            })
 
         } else if( type === 'controller') {
 

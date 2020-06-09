@@ -41,7 +41,7 @@ for(let i=0; i< 10; i++) {
     dashboards.push({
         id: i,
         displayName: `Board ${i}`,
-        embedUrl: i % 2 === 0 ? "https://www.youtube.com/embed/oYFTWuRwpJE" : "https://www.youtube.com/embed/meC1JsHF9hk"
+        embedUrl: i % 2 === 0 ? "https://www.youtube.com/embed/oYFTWuRwpJE" : "https://app.powerbi.com/reportEmbed?reportId=7f5c861a-77ea-4d50-bcf2-7d09deefb5c2&autoAuth=true&ctid=b41b72d0-4e9f-4c26-8a69-f949f367c91d&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0LyJ9"
     })
 }
 

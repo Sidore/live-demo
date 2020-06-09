@@ -2,6 +2,10 @@ import * as React from 'react';
 import io from 'socket.io-client';
 import { Draggable, Droppable } from 'react-drag-and-drop'
 
+
+const apId = "8ba054fe-7d3f-4d89-83a9-805b14c4c8cd";
+const sec = "crewnjWhKCUYpmBY8Q5ObxdfonXQq/7Wf7ICiLedD2A=";
+
 const dev = location && location.hostname == "localhost" || false;
 const serverUrl = dev ? "http://localhost:3333" : "";
 let socket = io(serverUrl);
@@ -102,6 +106,8 @@ export default class Page extends React.Component<{},{}> {
     render() {
 
         let res;
+        let w = window.innerWidth - 50;
+        let h = window.innerHeight - 50;
 
         if(!this.state.deviceType) {
             res = <div>
@@ -112,7 +118,7 @@ export default class Page extends React.Component<{},{}> {
                 if(!this.state.dashboard) {
                     res = <h1>{this.state.id}</h1>
                 } else {
-                    res = <iframe src={this.state.dashboard}></iframe>
+                    res = <iframe width={w} height={h} frameborder="0" allowFullScreen="true" src={this.state.dashboard}></iframe>
                 }
             } else {
                 res = <div>dashboards<ul>

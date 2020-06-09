@@ -2,13 +2,16 @@
   "name": "jscc",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "12.x"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node ./distServer/index.js",
     "server": "ts-node ./src/server/index.ts",
     "dev": "nodemon --watch",
     "client": "parcel src/client/index.html",
-    "build": "parcel build src/client/index.html --public-url /dist/ && tsc -p ."
+    "build": "parcel build ./src/client/index.html --public-url ./dist/ && tsc -p ."
   },
   "repository": {
     "type": "git",

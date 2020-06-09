@@ -37,7 +37,8 @@
   "devDependencies": {
     "@types/react": "^16.9.35",
     "nodemon": "^1.19.4",
-    "parcel": "^1.12.4"
+    "parcel": "^1.12.4",
+    "sass": "^1.26.8"
   },
   "bugs": {
     "url": "https://github.com/Sidore/live-demo/issues"

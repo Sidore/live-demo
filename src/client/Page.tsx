@@ -106,38 +106,53 @@ export default class Page extends React.Component<{},{}> {
     render() {
 
         let res;
-        let w = window.innerWidth - 50;
-        let h = window.innerHeight - 50;
+        let w = window.innerWidth - 5;
+        if (w > 1200) w = 1200;
+        let h = window.innerHeight - 5;
 
         if(!this.state.deviceType) {
-            res = <div>
-                <button onClick={this.ctrlChose} >Controller</button> | <button onClick={this.dsplChose} >Display</button>
+            res = <div className="typeContainer">
+                <div>Choose type of this device</div>
+                <div className="typeButtonContainer">
+                    <button onClick={this.ctrlChose} className="typeButton">Controller <img src="https://images.vexels.com/media/users/3/131905/isolated/preview/38ccd201537b0891643deb3f322a1602-remote-controller-icon-by-vexels.png"/></button>
+                    <button className="typeButton" onClick={this.dsplChose}>Display <img className="second" src="https://img.icons8.com/all/500/power-bi.png"/></button>
+                </div>
             </div>
         } else {
             if (this.state.deviceType === 'display') {
                 if(!this.state.dashboard) {
-                    res = <h1>{this.state.id}</h1>
+                    res = <h1 className="displayNumber">Display #{this.state.id} <hr/> Waiting for Controller</h1>
                 } else {
                     res = <iframe width={w} height={h} frameborder="0" allowFullScreen="true" src={this.state.dashboard}></iframe>
                 }
             } else {
-                res = <div>dashboards<ul>
-                    {this.state.dashboards.map(element => {
-                        return <li><Draggable type="dashboard" data={element}>{element}</Draggable></li>
-                    })}
-                </ul>screens
-                <ul>
-                    
-                {this.state.screens.map(element => {
-                        return <Droppable
-                        types={['dashboard']} // <= allowed drop types
-                        onDrop={this.onDrop.bind({context: this, element})}>
-                        <li>{element.id} - {element.dashboard}</li>
-                        </Droppable>
-                    })}
-
-                </ul>
-                
+                res = 
+                <div className="controlContainer">
+                    <div className="dashboardsContainer">
+                        <h2>Dashboards</h2>
+                        <ul className="dashboardsList">
+                            {this.state.dashboards.map(element => {
+                                return  <Draggable type="dashboard" data={element}>
+                                                <li>
+                                                {element}
+                                                </li>
+                                            </Draggable>
+                                        
+                            })}
+                        </ul>
+                    </div>
+                    <div className="screensContainer">
+                        <h2>Displays</h2>
+                        <ul className="screensList">
+                        {this.state.screens.map(element => {
+                                return <Droppable
+                                        types={['dashboard']} // <= allowed drop types
+                                        onDrop={this.onDrop.bind({context: this, element})}>
+                                            <li>Display #{element.id} {element.dashboard ? ` - ${element.dashboard}` : ""}</li>
+                                        </Droppable>
+                            })}
+                        </ul>
+                    </div>
                 </div>
             }
 

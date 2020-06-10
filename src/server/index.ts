@@ -37,10 +37,11 @@ const collection = {
 
 let dashboards = [];
 
-server.get("/reser", () => {
+server.get("/reset", (req,res) => {
     dashboards = [];
-    collection.displays = [];
+    // collection.displays = [];
     collection.controllers = [];
+    res.redirect("/");
 })
 
 dashboards.push({

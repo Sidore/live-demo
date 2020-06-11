@@ -38,8 +38,8 @@ const collection = {
 let dashboards = [];
 
 server.get("/reset", (req,res) => {
-    dashboards = [];
-    // collection.displays = [];
+    // dashboards = [];
+    collection.displays = [];
     collection.controllers = [];
     res.redirect("/");
 })

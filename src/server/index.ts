@@ -63,7 +63,6 @@ server.get("/reset", (req,res) => {
 
 
 io.on("connection", (socket) => {
-    // socket.on("start", ({ multiplayer }) => {})
     socket.emit("message", "hello");
 
     socket.on("typechose", (type) => {

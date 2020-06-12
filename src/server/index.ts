@@ -62,7 +62,6 @@ for(let i=0; i< 10; i++) {
 
 
 io.on("connection", (socket) => {
-    // socket.on("start", ({ multiplayer }) => {})
     socket.emit("message", "hello");
 
     socket.on("typechose", (type) => {

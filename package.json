@@ -11,7 +11,8 @@
     "server": "ts-node ./src/server/index.ts",
     "dev": "nodemon --watch",
     "client": "parcel src/client/index.html",
-    "build": "parcel build src/client/index.html --public-url dist/ && tsc -p ."
+    "copy": "cp ./src/server/data.json ./distServer/",
+    "build": "rimraf ./distServer && rimraf ./dist && parcel build src/client/index.html --public-url dist/ && tsc -p . && npm run copy"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "@types/react": "^16.9.35",
     "nodemon": "^1.19.4",
     "parcel": "^1.12.4",
+    "rimraf": "^3.0.2",
     "sass": "^1.26.8"
   },
   "bugs": {

@@ -12,14 +12,13 @@ const dev = location && location.hostname == "localhost" || false;
 const serverUrl = dev ? "http://localhost:3333" : "";
 let socket = io(serverUrl);
 
-let typeDevice = localStorage.getItem("typeDevice") || null
+let typeDevice = localStorage.getItem("typeDevice") || null;
 
 enum DeviceTypes {
     controller = 'controller',
     display = 'display'
 }
-const device: any = {}
-
+const device: any = {};
 
 export default class App extends React.Component<{},{}> {
     state = {
@@ -32,7 +31,7 @@ export default class App extends React.Component<{},{}> {
     };
 
     componentDidMount() {
-        socket.on('message',console.log)
+        socket.on('message',console.log);
         socket.on('id', (id) => {
             this.setState({
                 id

@@ -26,6 +26,7 @@
     "@types/socket.io": "^2.1.4",
     "express": "^4.17.1",
     "pixi.js": "^5.2.1",
+    "powerbi-client": "^2.11.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-drag-and-drop": "^3.0.0",

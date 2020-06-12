@@ -1,6 +1,7 @@
 import * as express from "express";
 import * as path from "path";
 import * as socketServer from "socket.io";
+const data = require('./data.json');
 
 const extraPass = __dirname.indexOf("distServer") === -1 ? "../" : "";
 
@@ -35,7 +36,7 @@ const collection = {
     displays: []
 }
 
-let dashboards = [];
+let dashboards = [...data.dashboards];
 
 server.get("/reset", (req,res) => {
     // dashboards = [];
@@ -44,20 +45,20 @@ server.get("/reset", (req,res) => {
     res.redirect("/");
 })
 
-dashboards.push({
-    id: dashboards.length,
-    displayName: `Supply Chain Control Tower`,
-    embedUrl: "https://app.powerbi.com/reportEmbed?reportId=7f5c861a-77ea-4d50-bcf2-7d09deefb5c2&autoAuth=true&ctid=b41b72d0-4e9f-4c26-8a69-f949f367c91d&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0LyJ9"
-})
-
-for(let i=0; i< 10; i++) {
-    dashboards.push({
-        id: i,
-        displayName: `Board ${i}`,
-        embedUrl:"https://www.youtube.com/embed/oYFTWuRwpJE"
-    })
-}
-
+// dashboards.push({
+//     id: dashboards.length,
+//     displayName: `Supply Chain Control Tower`,
+//     embedUrl: "https://app.powerbi.com/reportEmbed?reportId=7f5c861a-77ea-4d50-bcf2-7d09deefb5c2&autoAuth=true&ctid=b41b72d0-4e9f-4c26-8a69-f949f367c91d&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly93YWJpLXdlc3QtZXVyb3BlLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0LyJ9"
+// })
+//
+// for(let i=0; i< 10; i++) {
+//     dashboards.push({
+//         id: i,
+//         displayName: `Board ${i}`,
+//         embedUrl:"https://www.youtube.com/embed/oYFTWuRwpJE"
+//     })
+// }
+//
 
 
 
@@ -101,8 +102,8 @@ io.on("connection", (socket) => {
 
         console.log(dashboard, screen)
         const scr = collection.displays.find((s) => s.id == screen.id);
-        const brd = dashboards.find((d) => d.displayName == dashboard)
-        scr.socket.emit("dashboard",brd.embedUrl);
+        const brd = dashboards.find((d) => d.displayName == dashboard);
+        scr.socket.emit("dashboard", brd);
 
         scr.dashboard = brd.displayName;
 

@@ -39,6 +39,7 @@ export default class App extends React.Component<{},{}> {
         });
 
         socket.on('dashboard', (dashboard) => {
+            console.log('new dashboard!', dashboard);
             this.setState({
                 dashboard
             })
@@ -92,6 +93,7 @@ export default class App extends React.Component<{},{}> {
 
     render() {
         const { deviceType, id: displayId, dashboard, dashboards, screens } = this.state;
+        console.log(dashboard);
 
         switch (deviceType) {
             case DeviceTypes.display:

@@ -99,7 +99,6 @@ io.on("connection", (socket) => {
 
     socket.on("moveBoard", ({dashboard, screen}) => {
 
-        console.log(dashboard, screen)
         const scr = collection.displays.find((s) => s.id == screen.id);
         const brd = dashboards.find((d) => d.displayName == dashboard);
         scr.socket.emit("dashboard", brd);
@@ -109,11 +108,24 @@ io.on("connection", (socket) => {
         let hotdata = {
             dashboards: dashboards.map((d) => d.displayName),
             screens: collection.displays.map((d) => ({id:d.id, dashboard: d.dashboard}))
-        }
+        };
 
         collection.controllers.forEach((c) => {
             c.socket.emit("ctrlData", hotdata)
-        })        
+        });
+        if (brd.__filter) {
+            scr.socket.emit('filter', brd.__filter);
+        }
+    })
+
+    socket.on('filter', ( { dashboard, filter }) => {
+        const brd = dashboards.find((d) => d.displayName == dashboard);
+        brd.__filter = filter;
+
+        const screenCollections = collection.displays.filter(item => item.dashboard === dashboard);
+        screenCollections.map(item => {
+            item.socket.emit('filter', filter);
+        })
     })
 
 });

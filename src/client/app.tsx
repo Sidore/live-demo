@@ -27,6 +27,7 @@ export default class App extends React.Component<{},{}> {
         dashboard: null,
         screens: [],
         dashboards: [],
+        filter: null
         // boardsToScreens: []
     };
 
@@ -57,6 +58,10 @@ export default class App extends React.Component<{},{}> {
                 deviceType
             })
         });
+
+        socket.on('filter', filter => {
+            this.setState({ filter })
+        })
     }
 
     ctrlChose() {
@@ -65,6 +70,10 @@ export default class App extends React.Component<{},{}> {
 
     dsplChose() {
         socket.emit("typechose", "display")
+    }
+
+    handleSetFilter(dashboard, filter) {
+        socket.emit('filter', { dashboard, filter });
     }
 
     onSetScreenBoard(screen, dashboard) {
@@ -92,14 +101,13 @@ export default class App extends React.Component<{},{}> {
     }
 
     render() {
-        const { deviceType, id: displayId, dashboard, dashboards, screens } = this.state;
-        console.log(dashboard);
+        const { deviceType, id: displayId, dashboard, dashboards, screens, filter } = this.state;
 
         switch (deviceType) {
             case DeviceTypes.display:
-                return <Display displayId={displayId} dashboard={dashboard} />;
+                return <Display displayId={displayId} dashboard={dashboard} filter={filter} setFilter={this.handleSetFilter} />;
             case DeviceTypes.controller:
-                return <RemoteController dashboards={dashboards} screens={screens} setScreenBoard={this.onSetScreenBoard} />;
+                return <RemoteController setFilter={this.handleSetFilter} dashboards={dashboards} screens={screens} setScreenBoard={this.onSetScreenBoard} />;
             default:
                 return <DeviceTypesSelect onDsplChose={this.dsplChose} onCtrlChose={this.ctrlChose} />
         }

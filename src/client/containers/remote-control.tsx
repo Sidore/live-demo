@@ -2,10 +2,25 @@ import * as React from "react";
 import { useCallback } from "react";
 import { Draggable, Droppable } from 'react-drag-and-drop'
 
-const RemoteController = ({ dashboards, screens, setScreenBoard }): JSX.Element => {
+const filter = {
+    $schema: "http://powerbi.com/product/schema#basic",
+    target: {
+        table: "Store",
+        column: "Chain"
+    },
+    operator: "In",
+    values: ["Lindseys"]
+};
+
+const RemoteController = ({ dashboards, screens, setScreenBoard, setFilter }): JSX.Element => {
     const onDropElement = useCallback(screen => ({ dashboard }) =>{
         console.log('moved', dashboard, ' to ', screen);
         setScreenBoard(screen, dashboard);
+    }, []);
+
+    const onApplyFilter = useCallback((dashboard) => e => {
+        console.log('dashboard', dashboard);
+        setFilter(dashboard, filter);
     }, []);
 
     return <div className="controlContainer">
@@ -14,11 +29,13 @@ const RemoteController = ({ dashboards, screens, setScreenBoard }): JSX.Element 
             <ul className="dashboardsList">
                 {dashboards.map(
                     (element, key) => (
-                        <Draggable type="dashboard" key={key} data={element}>
+                        <React.Fragment key={element}>
+                        <Draggable type="dashboard" data={element}>
                             <li>
-                                {element}
+                                {element} <button name="filter" onClick={onApplyFilter(element)}>filter </button>
                             </li>
                         </Draggable>
+                        </React.Fragment>
                     )
                 )}
             </ul>

@@ -115,6 +115,22 @@ body {
     }
 }
 
+//Styles for name text
+.dashboardsList__item-name {
+    font-weight: bolder;
+    padding-right: 8px;
+}
+
+.dashboardsList__item-filters {
+    font-weight: normal;
+}
+.dashboardsList__item-filters > span {
+    padding-right: 8px;
+}
+.dashboardsList__item-filters > select {
+    min-width: 160px;
+}
+
 .screensList li {
     cursor: auto;
     &:active {

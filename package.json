@@ -39,7 +39,7 @@
   "devDependencies": {
     "@types/react": "^16.9.35",
     "nodemon": "^1.19.4",
-    "parcel": "^1.12.4",
+    "parcel": "^2.8.2",
     "rimraf": "^3.0.2",
     "sass": "^1.26.8"
   },
